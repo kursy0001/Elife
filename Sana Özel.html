@@ -1,0 +1,297 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Sana Özel</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Nunito:wght@600;800&family=Pacifico&display=swap">
+<style>
+  /* Mobil öncelikli tek ekran: haki zemin, her yana serpilmiş ince çizgi kalpler, ortada krem etiket kart. */
+  :root {
+    --khaki: #7d8b5d;
+    --khaki-deep: #5d6b44;
+    --khaki-soft: #a2af7e;
+    --cream: #fbf3e4;
+    --rose: #f2a3b1;
+    --rose-deep: #d96a82;
+    --ink: #3a4428;
+    --display: 'Pacifico', 'Brush Script MT', cursive;
+    --hand: 'Caveat', 'Segoe Script', cursive;
+    --body: 'Nunito', system-ui, sans-serif;
+    color-scheme: light;
+  }
+  html { background: var(--khaki); height: 100%; -webkit-tap-highlight-color: transparent; }
+  body {
+    min-height: 100%;
+    margin: 0;
+    background:
+      radial-gradient(circle at 18% 12%, var(--khaki-soft) 0, transparent 45%),
+      radial-gradient(circle at 85% 92%, var(--khaki-deep) 0, transparent 50%),
+      var(--khaki);
+    color: var(--ink);
+    font-family: var(--body);
+    padding-block: 28px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    box-sizing: border-box;
+    overflow-x: hidden;
+    position: relative;
+  }
+  .stage {
+    position: relative;
+    z-index: 2;
+    min-height: calc(100vh - 56px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card {
+    position: relative;
+    box-sizing: border-box;
+    width: min(100%, 420px);
+    padding: 34px 24px 32px;
+    background: var(--cream);
+    border-radius: 28px;
+    box-shadow: 0 9px 0 var(--khaki-deep), 0 26px 46px rgba(40, 50, 25, .35);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 9px;
+    border: 2px dashed var(--khaki-soft);
+    border-radius: 20px;
+    pointer-events: none;
+  }
+  .kicker {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 1.4rem;
+    line-height: 1.35;
+    color: var(--khaki-deep);
+    text-wrap: balance;
+  }
+  .big-heart {
+    width: 58px;
+    height: 58px;
+    fill: var(--rose-deep);
+    animation: beat 1.4s ease-in-out infinite;
+    filter: drop-shadow(0 5px 0 rgba(93, 107, 68, .25));
+  }
+  .go {
+    appearance: none;
+    border: 0;
+    cursor: pointer;
+    font-family: var(--body);
+    font-weight: 800;
+    font-size: 1.1rem;
+    line-height: 1.3;
+    color: var(--cream);
+    background: var(--rose-deep);
+    padding: 17px 24px;
+    border-radius: 999px;
+    box-shadow: 0 7px 0 #a84860, 0 14px 22px rgba(168, 72, 96, .35);
+    transition: transform .15s ease, box-shadow .15s ease;
+    text-wrap: balance;
+    max-width: 100%;
+    touch-action: manipulation;
+  }
+  .go:hover { transform: translateY(-2px) rotate(-1deg); }
+  .go:active { transform: translateY(5px); box-shadow: 0 2px 0 #a84860, 0 6px 10px rgba(168, 72, 96, .35); }
+  .go:focus-visible { outline: 4px solid var(--khaki-soft); outline-offset: 4px; }
+  .small {
+    margin: 0;
+    font-size: .95rem;
+    font-weight: 800;
+    letter-spacing: .02em;
+    color: var(--khaki-deep);
+  }
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 78%;
+    margin-top: 6px;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--khaki-soft);
+  }
+  .divider svg { width: 18px; height: 18px; fill: none; stroke: var(--rose-deep); stroke-width: 1.5; flex: none; }
+  .quote {
+    margin: 0;
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  /* İnce çizgi kalpler: sabit serpiştirme + süzülenler */
+  .deco, .hearts { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+  .deco svg, .hearts svg { position: absolute; fill: none; stroke-width: 1.3; }
+  .deco path, .hearts path { vector-effect: non-scaling-stroke; }
+  .deco svg { animation: sway ease-in-out infinite alternate; }
+  .hearts svg { bottom: -60px; animation: rise linear infinite; opacity: 0; }
+
+  /* Siyah ekran: dümdüz, yansıma için */
+  #black {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: #000;
+    cursor: none;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+  }
+
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.14); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.1); }
+  }
+  @keyframes sway {
+    from { transform: translateY(-4px) rotate(var(--r1)); }
+    to { transform: translateY(5px) rotate(var(--r2)); }
+  }
+  @keyframes rise {
+    0% { transform: translateY(0) translateX(0) rotate(-8deg); opacity: 0; }
+    10% { opacity: .8; }
+    50% { transform: translateY(-55vh) translateX(18px) rotate(8deg); }
+    90% { opacity: .6; }
+    100% { transform: translateY(-115vh) translateX(-14px) rotate(-6deg); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .big-heart, .deco svg { animation: none; }
+    .hearts { display: none; }
+    .go { transition: none; }
+  }
+</style>
+
+<div class="deco" id="deco" aria-hidden="true"></div>
+<div class="hearts" id="hearts" aria-hidden="true"></div>
+
+<main class="stage">
+  <section class="card">
+    <p class="kicker">sana küçük bir sürprizim var</p>
+    <svg class="big-heart" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </svg>
+    <button class="go" id="go" type="button">Dünyanın en güzel kızını görmek için tıkla</button>
+    <p class="small">sadece sana özel elifim</p>
+    <div class="divider" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    </div>
+    <p class="quote">Hayat sıkıcı değilmiş, sadece biraz sensizmiş. Gözleri bir çift görmeye yarayan yuvarlak sanırdım, ta ki seninkileri görene kadar.</p>
+  </section>
+</main>
+
+<div id="black" hidden></div>
+
+<script>
+  (function () {
+    var PATH = '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>';
+    var NS = 'http://www.w3.org/2000/svg';
+    var strokes = ['#fbf3e4', '#f2a3b1', '#fbf3e4', '#e9c3a6'];
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var deco = document.getElementById('deco');
+    var floaters = document.getElementById('hearts');
+    var builtW = 0;
+
+    function heart(size, stroke) {
+      var el = document.createElementNS(NS, 'svg');
+      el.setAttribute('viewBox', '0 0 24 24');
+      el.setAttribute('width', size);
+      el.setAttribute('height', size);
+      el.style.stroke = stroke;
+      el.innerHTML = PATH;
+      return el;
+    }
+
+    function buildDeco() {
+      var w = window.innerWidth, h = window.innerHeight;
+      builtW = w;
+      deco.innerHTML = '';
+      var cell = 74;
+      var cols = Math.max(3, Math.ceil(w / cell));
+      var rows = Math.max(4, Math.ceil(h / cell));
+      var cw = w / cols, ch = h / rows;
+      for (var r = 0; r < rows; r++) {
+        for (var c = 0; c < cols; c++) {
+          var size = 16 + Math.random() * 26;
+          var el = heart(size, strokes[(r + c) % strokes.length]);
+          el.style.left = (c * cw + Math.random() * (cw - size)) + 'px';
+          el.style.top = (r * ch + Math.random() * (ch - size)) + 'px';
+          el.style.opacity = (0.35 + Math.random() * 0.4).toFixed(2);
+          el.style.setProperty('--r1', (-18 + Math.random() * 36) + 'deg');
+          el.style.setProperty('--r2', (-18 + Math.random() * 36) + 'deg');
+          el.style.animationDuration = (3 + Math.random() * 4) + 's';
+          el.style.animationDelay = (-Math.random() * 6) + 's';
+          deco.appendChild(el);
+        }
+      }
+    }
+    buildDeco();
+
+    var timer;
+    window.addEventListener('resize', function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        if (window.innerWidth !== builtW) buildDeco();
+      }, 200);
+    });
+
+    if (!reduce) {
+      for (var i = 0; i < 10; i++) {
+        var s = 18 + Math.random() * 24;
+        var el = heart(s, strokes[i % strokes.length]);
+        el.style.left = (Math.random() * 92) + '%';
+        el.style.animationDuration = (10 + Math.random() * 9) + 's';
+        el.style.animationDelay = (-Math.random() * 18) + 's';
+        floaters.appendChild(el);
+      }
+    }
+
+    var go = document.getElementById('go');
+    var black = document.getElementById('black');
+    var lastTap = 0;
+
+    function openBlack() {
+      black.hidden = false;
+      try {
+        var p = document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+        if (p && p.catch) p.catch(function () {});
+      } catch (e) {}
+    }
+    function closeBlack() {
+      black.hidden = true;
+      try {
+        if (document.fullscreenElement && document.exitFullscreen) {
+          var p = document.exitFullscreen();
+          if (p && p.catch) p.catch(function () {});
+        }
+      } catch (e) {}
+    }
+
+    go.addEventListener('click', openBlack);
+    // Geri dönmek için çift dokunuş / çift tık, ya da Esc
+    black.addEventListener('click', function () {
+      var now = Date.now();
+      if (now - lastTap < 450) { closeBlack(); lastTap = 0; } else { lastTap = now; }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !black.hidden) closeBlack();
+    });
+    document.addEventListener('fullscreenchange', function () {
+      if (!document.fullscreenElement && !black.hidden) black.hidden = true;
+    });
+  })();
+</script>
+
+</body></html>
